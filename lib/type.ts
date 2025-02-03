@@ -29,4 +29,16 @@ export interface EventWithUserAndCategory extends Event {
     category: Category;
 }
 
+export interface Provinsi {
+    id: string,
+    name: string
+}
+
+export interface Kabupaten {
+    id: string,
+    province_id: string,
+    name: string
+}
+
+
 

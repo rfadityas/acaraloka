@@ -38,10 +38,10 @@ export async function GET() {
         } satisfies EventWithUserAndCategory));
 
         return NextResponse.json({ data });
-    } catch (error) {
+    } catch (e) {
         return NextResponse.json({
             status: 500,
-            message: error,
+            message: e,
         });
     }
     

@@ -13,5 +13,3 @@ export const useEvents = () => {
     });
     return {events: data};
 }
-
-export default useEvents;

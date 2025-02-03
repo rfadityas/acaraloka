@@ -2,7 +2,7 @@
 import { GridPattern } from "@/components/ui/grid-pattern";
 import { cn } from "@/lib/utils";
 import { LineShadowText } from "@/components/ui/line-shadow-text";
-import useEvents from "@/hooks/useEvents";
+import { useEvents } from "@/hooks";
 import {
   Card,
   CardContent,
@@ -22,6 +22,8 @@ import { Button } from "@/components/ui/button";
 import { formatDistanceToNow } from "date-fns";
 import { id } from "date-fns/locale";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import BottomNav from "@/components/bottom-nav";
+import FilterEvent from "@/components/filter-event";
 
 export default function Home() {
   const { events } = useEvents();
@@ -38,6 +40,7 @@ export default function Home() {
           <p className="text-lg font-[family-name:var(--font-geist-mono)] text-white/80">
             Cari & promosikan acara seru di sekitarmu...
           </p>
+          <BottomNav />
         </div>
         <GridPattern
           width={20}
@@ -50,78 +53,92 @@ export default function Home() {
           )}
         />
       </div>
-      <div className="mt-8 p-8 font-[family-name:var(--font-geist-sans)] space-y-6">
-        <h1 className="font-bold text-2xl border-b border-b-white w-fit px-4 py-2 rounded">
-          Baru Ditambahkan
-        </h1>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {new Array(5).fill(0).map((_, i) => (
-            <Card key={i} className="transition-all">
-              <CardHeader>
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <div className="w-full h-[200px] bg-red-200 overflow-hidden">
-                      <Image
-                        src={Test}
-                        width={250}
-                        height={250}
-                        alt="Picture of the author"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-80 p-0">
-                    <div className="relative h-[400px] w-full">
-                      <Image
-                        src={Test}
-                        fill
-                        alt="Picture of the author"
-                        className="rounded-lg object-cover"
-                        sizes="(max-width: 320px) 100vw, 320px"
-                      />
-                    </div>
-                  </HoverCardContent>
-                </HoverCard>
-                <div className="flex flex-col space-y-2">
-                  <h3 className="text-2xl font-bold">Diraya Festival</h3>
-                  <p className="text-muted-foreground truncate">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Sapiente, et ad. Quas, quisquam numquam, cum consectetur
-                    praesentium doloremque autem neque dignissimos quaerat rerum
-                    in? Possimus natus inventore culpa odit facere numquam
-                    laborum nulla, accusantium ducimus accusamus facilis
-                    voluptas, explicabo eveniet dicta commodi illum. Fugiat,
-                    officiis. Modi ad deserunt natus non?
-                  </p>
-                  <Badge className="w-fit">Musik Festival</Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div>
-                  <div className="flex items-center space-x-2">
-                    <MapPin className="w-4 h-4" />
-                    <p className="text-muted-foreground">Sleman, DIY</p>
+      <div className="mt-8 p-8 font-[family-name:var(--font-geist-sans)] space-y-6 flex   gap-4">
+        <FilterEvent />
+        <div>
+          <h1 className="font-bold text-2xl border-b border-b-white w-fit px-4 py-2">
+            Baru Ditambahkan
+          </h1>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {new Array(5).fill(0).map((_, i) => (
+              <Card key={i} className="transition-all">
+                <CardHeader className="gap-2">
+                  <HoverCard>
+                    <HoverCardTrigger asChild>
+                      <div className="w-full h-[100px] lg:h-[200px] bg-red-200 rounded-lg overflow-hidden">
+                        <Image
+                          src={Test}
+                          width={250}
+                          height={250}
+                          alt="Picture of the author"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-80 p-0">
+                      <div className="relative h-[400px] w-full">
+                        <Image
+                          src={Test}
+                          fill
+                          alt="Picture of the author"
+                          className="rounded-lg object-cover"
+                          sizes="(max-width: 320px) 100vw, 320px"
+                        />
+                      </div>
+                    </HoverCardContent>
+                  </HoverCard>
+                  <div className="flex flex-col space-y-2">
+                    <h3 className="text-lg lg:text-2xl font-bold">
+                      Diraya Festival
+                    </h3>
+                    <p className="text-muted-foreground truncate text-xs lg:text-[14px]">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Sapiente, et ad. Quas, quisquam numquam, cum consectetur
+                      praesentium doloremque autem neque dignissimos quaerat
+                      rerum in? Possimus natus inventore culpa odit facere
+                      numquam laborum nulla, accusantium ducimus accusamus
+                      facilis voluptas, explicabo eveniet dicta commodi illum.
+                      Fugiat, officiis. Modi ad deserunt natus non?
+                    </p>
+                    <Badge className="w-fit">Musik Festival</Badge>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="w-4 h-4" />
-                    <p className="text-muted-foreground">20 Mei 2023</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <MapPin className="w-3 h-3 lg:w-4 lg:h-4" />
+                      <p className="text-muted-foreground text-xs lg:text-[14px]">
+                        Sleman, DIY
+                      </p>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Calendar className="w-3 h-3 lg:w-4 lg:h-4" />
+                      <p className="text-muted-foreground text-xs lg:text-[14px]">
+                        20 Mei 2023
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <div className="w-full flex flex-col gap-2">
-                  <p className="text-sm text-muted-foreground">
-                    Diunggah{" "}
-                    {formatDistanceToNow(new Date("2025-01-30 15:43:31.426"), {
-                      addSuffix: true,
-                      locale: id,
-                    })}
-                  </p>
-                  <InteractiveHoverButton>Lihat Detail</InteractiveHoverButton>
-                </div>
-              </CardFooter>
-            </Card>
-          ))}
+                </CardContent>
+                <CardFooter>
+                  <div className="w-full flex flex-col gap-2">
+                    <p className="text-muted-foreground text-xs lg:text-[14px]">
+                      Diunggah{" "}
+                      {formatDistanceToNow(
+                        new Date("2025-01-30 15:43:31.426"),
+                        {
+                          addSuffix: true,
+                          locale: id,
+                        }
+                      )}
+                    </p>
+                    <InteractiveHoverButton>
+                      Lihat Detail
+                    </InteractiveHoverButton>
+                  </div>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </>
