@@ -27,6 +27,7 @@ import FilterEvent from "@/components/filter-event";
 
 export default function Home() {
   const { events } = useEvents();
+
   return (
     <>
       <div className="relative h-[35vh] flex size-full items-center justify-center overflow-hidden border rounded-b-[40px] rounded-lg bg-background p-20 font-[family-name:var(--font-geist-sans)]">

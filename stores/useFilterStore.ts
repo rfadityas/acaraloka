@@ -3,8 +3,8 @@ import { create } from 'zustand'
 type FilterStore = {
     select: string,
     setSelect: (select: string) => void,
-    category: number,
-    setCategory: (category: number) => void,
+    category: string,
+    setCategory: (category: string) => void,
     provinsi: string,
     setProvinsi: (provinsi: string) => void,
     kabupaten: string,
@@ -14,8 +14,8 @@ type FilterStore = {
 export const useFilterStore = create<FilterStore>((set) => ({
     select: 'new',
     setSelect: (select: string) => set({ select }),
-    category: 1,
-    setCategory: (category: number) => set({ category }),
+    category: '',
+    setCategory: (category: string) => set({ category }),
     provinsi: "",
     setProvinsi: (provinsi: string) => set({ provinsi }),
     kabupaten: "",

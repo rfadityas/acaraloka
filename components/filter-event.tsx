@@ -32,7 +32,7 @@ export default function FilterEvent() {
   };
 
   const handleCategory = (value: string) => {
-    setCategory(Number(value));
+    setCategory(value);
   };
 
   const handleProvinsi = (value: string) => {
@@ -75,7 +75,7 @@ export default function FilterEvent() {
           </SelectContent>
         </Select>
         <Select value={provinsiState} onValueChange={handleProvinsi}>
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="w-full text-left">
             <SelectValue placeholder="Pilih Provinsi" />
           </SelectTrigger>
           <SelectContent>
@@ -94,7 +94,7 @@ export default function FilterEvent() {
           onValueChange={handleKabupaten}
           disabled={!provinsiState}
         >
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="w-full text-left">
             <SelectValue placeholder="Pilih Provinsi" />
           </SelectTrigger>
           <SelectContent>
