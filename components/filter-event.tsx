@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Badge } from "./ui/badge";
 import {
   Select,
@@ -13,6 +13,7 @@ import { useProvinsi, useCategories, useKabupaten } from "@/hooks";
 import { useFilterStore } from "@/stores/useFilterStore";
 
 export default function FilterEvent() {
+  const [provinsiId, setProvinsiId] = useState<string>("");
   const { category } = useCategories();
   const {
     select,
@@ -25,7 +26,7 @@ export default function FilterEvent() {
     setKabupaten,
   } = useFilterStore();
   const { provinsi } = useProvinsi();
-  const { kabupaten } = useKabupaten(provinsiState);
+  const { kabupaten } = useKabupaten(provinsiId);
 
   const handleSelect = (value: string) => {
     setSelect(value);
@@ -36,7 +37,9 @@ export default function FilterEvent() {
   };
 
   const handleProvinsi = (value: string) => {
+    const getId = provinsi?.find((prov) => prov.name === value)?.id;
     setProvinsi(value);
+    setProvinsiId(getId ?? "");
   };
 
   const handleKabupaten = (value: string) => {
@@ -44,16 +47,15 @@ export default function FilterEvent() {
   };
 
   return (
-    <div className="flex flex-col justify-items-center p-10 --font-geist-sans gap-2">
-      <div className="w-[300px] h-full rounded bg-primary-foreground p-6 flex flex-col items-center gap-2">
-        <h1 onClick={() => console.log(provinsiState)}>cek</h1>
+    <div className="flex flex-col justify-items-center p-10 --font-geist-sans gap-2 h-fit">
+      <h1 className="text-xl font-bold">Filter</h1>
+      <div className="w-[300px] h-full rounded-lg bg-primary-foreground p-6 flex flex-col items-center gap-2">
         <Select value={select} onValueChange={handleSelect}>
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Pilih Berdasarkan" />
+            <SelectValue placeholder="Urut Berdasarkan" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Berdasarkan</SelectLabel>
               <SelectItem value="new">Baru ditambahkan</SelectItem>
               <SelectItem value="nearby">Acara terdekat</SelectItem>
             </SelectGroup>
@@ -65,7 +67,7 @@ export default function FilterEvent() {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Kategori</SelectLabel>
+              <SelectItem value="0">Semua Kategori</SelectItem>
               {category?.map((category) => (
                 <SelectItem key={category.id} value={category.id.toString()}>
                   {category.name}
@@ -80,9 +82,8 @@ export default function FilterEvent() {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Provinsi</SelectLabel>
               {provinsi?.map((provinsi) => (
-                <SelectItem key={provinsi.id} value={provinsi.id}>
+                <SelectItem key={provinsi.id} value={provinsi.name}>
                   {provinsi.name}
                 </SelectItem>
               ))}
@@ -95,13 +96,12 @@ export default function FilterEvent() {
           disabled={!provinsiState}
         >
           <SelectTrigger className="w-full text-left">
-            <SelectValue placeholder="Pilih Provinsi" />
+            <SelectValue placeholder="Pilih Kabupaten" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Provinsi</SelectLabel>
               {kabupaten?.map((kabupaten) => (
-                <SelectItem key={kabupaten.id} value={kabupaten.id}>
+                <SelectItem key={kabupaten.id} value={kabupaten.name}>
                   {kabupaten.name}
                 </SelectItem>
               ))}

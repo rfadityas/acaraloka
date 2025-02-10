@@ -12,7 +12,7 @@ export const useEvents = () => {
     const [debouncedKabupaten] = useDebounce(kabupaten, 500);
     const [debouncedCategory] = useDebounce(category, 500);
 
-    const { data } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ["events", debouncedSelect, debouncedProvinsi, debouncedKabupaten, debouncedCategory],
         queryFn: async () => {
             const rawQuery = pickBy({ select, provinsi, kabupaten, category });
@@ -26,11 +26,11 @@ export const useEvents = () => {
                 : `/api/events`;
 
             const response = await fetch(url);
-            const data = await response.json();
+            const {data} = await response.json();
             return data as EventWithUserAndCategory[];
         },
         refetchOnWindowFocus: false,
     });
 
-    return { events: data };
+    return { events: data, isLoading };
 };

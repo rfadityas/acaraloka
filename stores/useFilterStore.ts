@@ -14,7 +14,7 @@ type FilterStore = {
 export const useFilterStore = create<FilterStore>((set) => ({
     select: 'new',
     setSelect: (select: string) => set({ select }),
-    category: '',
+    category: '0',
     setCategory: (category: string) => set({ category }),
     provinsi: "",
     setProvinsi: (provinsi: string) => set({ provinsi }),
